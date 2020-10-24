@@ -48,5 +48,20 @@ public class FoodController {
 		return mv;
 		
 	}
+	
+	@RequestMapping(value="/foodsSearch")
+	public ModelAndView foodsByLike(
+			@RequestParam(name="name") String name,
+			ModelAndView mv
+			) {
+		mv.addObject("categories", categoryRepository.findAll());
+		
+		List<Food> foodList = foodRepository.findByNameLike("%" + name + "%");
+		mv.addObject("foods", foodList);
+		
+		mv.setViewName("foods");
+		return mv;
+		
+	}
 
 }
